@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "A starter repo for Hack Reactor's Movie List prompt with webpack setup.",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RamKhalsa/movie-list-starter.git"
@@ -16,6 +15,8 @@
   },
   "homepage": "https://github.com/RamKhalsa/movie-list-starter#readme",
   "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

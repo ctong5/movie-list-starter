@@ -1,0 +1,50 @@
+## WEBPACK
+- runs all sources, styles, dependencies all at once
+- npm install
+- npm install -g webpack
+
+## BABEL
+- babel can be configured in many ways. need a babel-preset for react
+
+## TROUBLESHOOTING
+* Webpack will contain everything imported/exported and its scope
+    * if we only write import React in index.js, it does NOT have global scope
+  * CHECK IF SRC=REACT IS IMPORTED GLOBALLY IN INDEX.HTML
+
+* Blank screen
+- Check console
+
+* React is not defined:
+- React is not imported on where the error is reported to be happening. If React is not imported, you will see what Babel is transpiling
+
+* Do we have access to an imported file? 
+- console.log file name!
+
+* I want to console.log in my stateless expression
+- ES6 syntax parens to brackets because we need a return statement. Parens is just a single line return 
+
+* this.props vs. props
+- when our component is stateless, it takes an input, outputs it, and works. 
+but it has no methods that sit on it and no continued access after it's been created.
+- when referencing outside of constructur function, we need to say this.props. 
+because we're refering to an instance of props that's been instantiated. In a class 
+(click handler, etc that is referencing the props), props need to be
+available after being instantiated, need to keep refering back to class constructor
+
+* where would you have stateful component? what components need access to it?
+
+## FILE STRUCTURE
+|-- dist
+|-- node_modules
+|-- src
+    |-- components
+        |-- MovieList.jsx
+        |-- 
+    |-- data
+        |-- exampleMovieListData
+    |-- index.js
+|-- package.json
+
+
+* Create src/components
+* Create src/data
