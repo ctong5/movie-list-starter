@@ -1,9 +1,10 @@
 import React from 'react';
 import MovieList from './MovieList';
 import Search from './Search';
+import User from './User';
 
 /*
-// make the App stateful
+* make  App stateful
 */
 
 class App extends React.Component {
@@ -11,39 +12,81 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
+      search: 'dog',
+      movieList: props.movies
     };
-    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleSearchFormChange = this.handleSearchFormChange.bind(this);
+    this.handleSearchFormSubmit = this.handleSearchFormChange.bind(this);
   }
 
-  handleFormChange(e) {
-    console.log(e)
-    let searchTerm = e.target.value;
-    // update state with passed in value of search term
+  // HANDLE SEARCH BAR INPUT, SET STATE WITH PASSED IN E.T.VALUE FROM SEARCH INPUT
+  handleSearchFormChange(e) {
     this.setState({
-      searchTerm: searchTerm,
+      search: e.target.value
     })
+    // console.log(this.state.search);
   }
+
+  // HANDLE SEARCH SUBMIT, RENDER FILTERED MOVIE LISTS BASED ON SEARCH BAR
+  handleSearchFormSubmit(e) {
+    // NOT LOGGING
+    console.log(this.state.search); 
+    
+    // // get search term and movie list for comparison
+    // let search = this.state.search;
+    // let movieList = this.state.movieList;
+    // console.log(this.state.movieList);
+
+    // // filter movielistdata to include only the search state
+    // let filteredMovieList = movieList.filter((movie) => {
+    //   return movie.toLowerCase().includes(search.toLowerCase());
+    // });
+
+    // // console.log(filteredMovieList);
+    
+    // // if no movies match the search term, set state to "no movies found"
+    // // otherwise, set search state to blank and display new array of filtered movie list
+    // if (filteredMovieList.length === 0) {
+    //   this.setState({
+    //     movieList: "Sorry dude, your search was not found",
+    //     search: ""
+    //   })
+    // } else {
+    //   this.setState({
+    //     movieList: filteredMovieList,
+    //     search: ""
+    //   });
+    // }
+  }
+
+  // HANDLE REFRESH AND RENDER ALL MOVIES AFTER UNSUCCESSFUL SEARCH
+  // after clicking on MovieList title, this will be invoked
+  // handler will set state of 
+    // movie list to original movielist (props.movielistdata)
+    // search to blank
+
+  // HANDLE USER ADDED MOVIE - GET E.T.VALUE FROM USER INPUT
+  // no need to set state here as we're just grabbing value and adding to the movielistdata
+
+  // HANDLE USER ADDED MOVIE SUBMIT - ADD MOVIE TO MOVIELISTDATA
 
   render() {
     return (
       <div>
-      {console.log(this.props)}
-        <h1>Movie List!!!</h1>
-      
-        <div>
-        <Search handleFormChange={this.handleFormChange}/>
-        </div>
-        
-        <div>
-          <MovieList movies={this.props.movies} />
-        </div>
+      {/* {console.log(this.props)} */}
+        <h1><span>Movie List!!!</span></h1>
+    
+        <Search handleSearchFormChange={this.handleSearchFormChange} 
+                handleSearchFormSubmit={this.handleSearchFormSubmit}/>
+
+        <User />
+
+        <MovieList movies={this.props.movies} />
   
       </div>
     )
   }
 }
-
 
 export default App;
 

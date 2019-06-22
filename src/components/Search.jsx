@@ -1,14 +1,20 @@
 import React from 'react';
 
-var Search = () => (
+const Search = (props) => (
+  <div>
+    <form 
+      onSubmit= { e => { 
+        e.preventDefault();
+        // console.log(e.nativeEvent);
+        props.handleSearchFormSubmit(e);
+      }}
+    
+      onChange={ (e) => props.handleSearchFormChange(e) } >
 
-  <form>
-  <input type="text"
-         onChange={this.handleFormChange(e)}/>
-
-  <input type="submit" />
-</form>
-
+      <input type="search" name="search" />
+      <input type="submit" value="Search Movies" />
+    </form>
+  </div>
 )
 
 export default Search;

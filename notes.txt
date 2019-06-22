@@ -33,6 +33,32 @@ available after being instantiated, need to keep refering back to class construc
 
 * where would you have stateful component? what components need access to it?
 
+* where would I want to keep state?
+- map out the component structure and what components need to use that state (Search and Movie List). 
+Place state in common ancestor (App).
+
+* module build failed, syntax error
+- check 
+
+* form onSubmit...event.target.value ...the form's value is undefined. 
+
+* onChange is change to the value (value of the tag)
+*CANT submit an input, can only submit a form. onSubmit is ONLY in a form.
+
+<input name=testState >
+<input name=testState2 >
+<input name=testState3 >
+
+this.setState({
+  event.target.name >> creates name state on the fly
+  [event.target.name] ---> creates this.state.testState2 on the fly
+})
+
+## LEARNINGS
+- any event handler has e as default first argument
+
+QUESTIONS
+- form submit should be able to console log something right? Want to console log that the button works. 
 ## FILE STRUCTURE
 |-- dist
 |-- node_modules
