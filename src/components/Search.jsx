@@ -3,10 +3,9 @@ import React from 'react';
 const Search = (props) => (
   <div>
     <form 
-      onSubmit= { e => { 
-        e.preventDefault();
-        // console.log(e.nativeEvent);
+      onSubmit= { (e) => {
         props.handleSearchFormSubmit(e);
+        console.log(props.handleSearchFormSubmit);
       }}
     
       onChange={ (e) => props.handleSearchFormChange(e) } >

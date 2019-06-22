@@ -12,11 +12,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: 'dog',
+      search: '',
       movieList: props.movies
     };
     this.handleSearchFormChange = this.handleSearchFormChange.bind(this);
-    this.handleSearchFormSubmit = this.handleSearchFormChange.bind(this);
+    this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
   }
 
   // HANDLE SEARCH BAR INPUT, SET STATE WITH PASSED IN E.T.VALUE FROM SEARCH INPUT
@@ -29,34 +29,38 @@ class App extends React.Component {
 
   // HANDLE SEARCH SUBMIT, RENDER FILTERED MOVIE LISTS BASED ON SEARCH BAR
   handleSearchFormSubmit(e) {
-    // NOT LOGGING
-    console.log(this.state.search); 
-    
-    // // get search term and movie list for comparison
-    // let search = this.state.search;
-    // let movieList = this.state.movieList;
-    // console.log(this.state.movieList);
+    // console.log(this.props.movie)...same as below
+    // console.log(this.state.search); 
+    e.preventDefault();
+    // get search term and movie list for comparison
+    let search = this.state.search;
+    let movieList = this.state.movieList;
+    console.log("movieList: ", movieList);
+    console.log("search: ", search);
 
-    // // filter movielistdata to include only the search state
-    // let filteredMovieList = movieList.filter((movie) => {
-    //   return movie.toLowerCase().includes(search.toLowerCase());
-    // });
+    // filter movielistdata to include only the search state
+    let filteredMovieList = movieList.filter((movie) => {
+      return movie.title.toLowerCase().includes(search.toLowerCase());
+    });
+    console.log("filtered", filteredMovieList);
 
-    // // console.log(filteredMovieList);
+    this.setState({
+      filteredMovies: filteredMovieList,
+    })
     
-    // // if no movies match the search term, set state to "no movies found"
-    // // otherwise, set search state to blank and display new array of filtered movie list
-    // if (filteredMovieList.length === 0) {
-    //   this.setState({
-    //     movieList: "Sorry dude, your search was not found",
-    //     search: ""
-    //   })
-    // } else {
-    //   this.setState({
-    //     movieList: filteredMovieList,
-    //     search: ""
-    //   });
-    // }
+    // if no movies match the search term, set state to "no movies found"
+    // otherwise, set search state to blank and display new array of filtered movie list
+    if (filteredMovieList.length === 0) {
+      this.setState({
+        movieList: "Sorry dude, your search was not found",
+        search: ""
+      })
+    } else {
+    this.setState({
+      movieList: filteredMovieList,
+      search: ""
+    });
+    }
   }
 
   // HANDLE REFRESH AND RENDER ALL MOVIES AFTER UNSUCCESSFUL SEARCH
@@ -71,6 +75,14 @@ class App extends React.Component {
   // HANDLE USER ADDED MOVIE SUBMIT - ADD MOVIE TO MOVIELISTDATA
 
   render() {
+
+    // let movies;
+    // if (this.state.filteredMovieList) {
+    //   movies = this.state.filteredMovieList;
+    // } else {
+    //   movies = this.state.movies;
+    // }
+
     return (
       <div>
       {/* {console.log(this.props)} */}
