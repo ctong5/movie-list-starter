@@ -1,14 +1,12 @@
 import React from 'react';
 
 var Search = () => (
+
   <form>
   <input type="text"
+         onChange={this.handleFormChange(e)}/>
 
-          >
-  </input>
-
-  <input type="submit">
-  </input>
+  <input type="submit" />
 </form>
 
 )

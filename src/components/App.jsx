@@ -3,7 +3,7 @@ import MovieList from './MovieList';
 import Search from './Search';
 
 /*
-// give App state now
+// make the App stateful
 */
 
 class App extends React.Component {
@@ -11,8 +11,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: null,
+      searchTerm: '',
     };
+    this.handleFormChange = this.handleFormChange.bind(this);
+  }
+
+  handleFormChange(e) {
+    console.log(e)
+    let searchTerm = e.target.value;
+    // update state with passed in value of search term
+    this.setState({
+      searchTerm: searchTerm,
+    })
   }
 
   render() {
@@ -22,7 +32,7 @@ class App extends React.Component {
         <h1>Movie List!!!</h1>
       
         <div>
-        <Search />
+        <Search handleFormChange={this.handleFormChange}/>
         </div>
         
         <div>
