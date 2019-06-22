@@ -54,6 +54,12 @@ this.setState({
   [event.target.name] ---> creates this.state.testState2 on the fly
 })
 
+## BONUS: overall problem of handling no succesful search results
+- show text no movies found
+  - did we find movies? are we actively filtering movies? // yes, filteringmovies is null or not
+  - are we trying to filter movies
+  - have a method to render one of multiple options 
+
 ## LEARNINGS
 - any event handler has e as default first argument
 

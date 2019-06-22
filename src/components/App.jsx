@@ -13,7 +13,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       search: '',
-      movieList: props.movies
+      movieList: props.movies,
+      filteredMovieList: null,
     };
     this.handleSearchFormChange = this.handleSearchFormChange.bind(this);
     this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
@@ -29,9 +30,10 @@ class App extends React.Component {
 
   // HANDLE SEARCH SUBMIT, RENDER FILTERED MOVIE LISTS BASED ON SEARCH BAR
   handleSearchFormSubmit(e) {
-    // console.log(this.props.movie)...same as below
-    // console.log(this.state.search); 
     e.preventDefault();
+    // console.log(this.props.movies);
+    // console.log(this.state.search); 
+
     // get search term and movie list for comparison
     let search = this.state.search;
     let movieList = this.state.movieList;
@@ -45,22 +47,8 @@ class App extends React.Component {
     console.log("filtered", filteredMovieList);
 
     this.setState({
-      filteredMovies: filteredMovieList,
+      filteredMovieList: filteredMovieList,
     })
-    
-    // if no movies match the search term, set state to "no movies found"
-    // otherwise, set search state to blank and display new array of filtered movie list
-    if (filteredMovieList.length === 0) {
-      this.setState({
-        movieList: "Sorry dude, your search was not found",
-        search: ""
-      })
-    } else {
-    this.setState({
-      movieList: filteredMovieList,
-      search: ""
-    });
-    }
   }
 
   // HANDLE REFRESH AND RENDER ALL MOVIES AFTER UNSUCCESSFUL SEARCH
@@ -76,6 +64,7 @@ class App extends React.Component {
 
   render() {
 
+    // LONG WAYS FOR MOVIELIST
     // let movies;
     // if (this.state.filteredMovieList) {
     //   movies = this.state.filteredMovieList;
@@ -83,9 +72,13 @@ class App extends React.Component {
     //   movies = this.state.movies;
     // }
 
+    // if filteredmovies is NOT null (we are actively filtering) and length is 0. we ARE filtering and have NOT found anything
+    let isFiltering;
+
+
+
     return (
       <div>
-      {/* {console.log(this.props)} */}
         <h1><span>Movie List!!!</span></h1>
     
         <Search handleSearchFormChange={this.handleSearchFormChange} 
@@ -93,8 +86,14 @@ class App extends React.Component {
 
         <User />
 
-        <MovieList movies={this.props.movies} />
-  
+        {/*<MovieList movies={this.props.movies} />*/}
+        <MovieList movies={this.state.filteredMovieList || this.state.movieList} />
+        { 
+          this.state.filteredMovieList !== null && this.state.filteredMovieList.length === 0 && 
+          // console.log("I should be showing NO results found now"); // check my logic in line above
+          <span>No movies found!</span>
+          
+        }
       </div>
     )
   }

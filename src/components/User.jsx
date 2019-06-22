@@ -6,7 +6,6 @@ const User = () => (
     <form>
       <input type="search"/> 
       <input type="submit" value="Add A Movie"/>
-    
     </form>
   </div>
 
