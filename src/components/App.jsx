@@ -4,7 +4,7 @@ import Search from './Search';
 import User from './User';
 
 /*
-* make  App stateful
+make  App stateful
 */
 
 class App extends React.Component {
@@ -14,18 +14,22 @@ class App extends React.Component {
     this.state = {
       search: '',
       movieList: props.movies,
-      filteredMovieList: null,
+      newMovie: '',
+      filteredMovieList: '',
     };
-    this.handleSearchFormChange = this.handleSearchFormChange.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
     this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
+    this.handleNewMovieFormSubmit = this.handleNewMovieFormSubmit.bind(this);
   }
 
-  // HANDLE SEARCH BAR INPUT, SET STATE WITH PASSED IN E.T.VALUE FROM SEARCH INPUT
-  handleSearchFormChange(e) {
+  // HANDLE SEARCH BAR INPUT, SET STATE WITH PASSED IN E.T. VALUE FROM SEARCH INPUT
+  handleFormChange(e) {
+    // this.setState({
+    //   search: e.target.value
+    // })
     this.setState({
-      search: e.target.value
-    })
-    // console.log(this.state.search);
+      [e.target.name]: e.target.value
+    });
   }
 
   // HANDLE SEARCH SUBMIT, RENDER FILTERED MOVIE LISTS BASED ON SEARCH BAR
@@ -34,33 +38,45 @@ class App extends React.Component {
     // console.log(this.props.movies);
     // console.log(this.state.search); 
 
-    // get search term and movie list for comparison
     let search = this.state.search;
     let movieList = this.state.movieList;
-    console.log("movieList: ", movieList);
-    console.log("search: ", search);
+    // console.log("movieList: ", movieList);
+    // console.log("search: ", search);
 
     // filter movielistdata to include only the search state
     let filteredMovieList = movieList.filter((movie) => {
       return movie.title.toLowerCase().includes(search.toLowerCase());
     });
-    console.log("filtered", filteredMovieList);
+    // console.log("filtered", filteredMovieList);
 
     this.setState({
       filteredMovieList: filteredMovieList,
     })
   }
 
-  // HANDLE REFRESH AND RENDER ALL MOVIES AFTER UNSUCCESSFUL SEARCH
-  // after clicking on MovieList title, this will be invoked
-  // handler will set state of 
-    // movie list to original movielist (props.movielistdata)
-    // search to blank
+  // HANDLE USER ADDED MOVIE SUBMIT - GET E.T.VALUE FROM USER INPUT. SET STATE SO NEW MOVIE IS ADDED
+    // add form or input to page
+    // be able to see that we're capturing new movie value
+      // as we type, store the value in state
+      // when we click add, get access to state
+    // prove I can add a movie
+      // add the move to the movieList data
+      // render the new movieList
+    handleNewMovieFormSubmit(e) {
+      e.preventDefault();
+    
+      let newMovie = this.state.newMovie;
+      // console.log(newMovie === this.state.newMovie);
 
-  // HANDLE USER ADDED MOVIE - GET E.T.VALUE FROM USER INPUT
-  // no need to set state here as we're just grabbing value and adding to the movielistdata
+      let movieList = [...this.state.movieList];
 
-  // HANDLE USER ADDED MOVIE SUBMIT - ADD MOVIE TO MOVIELISTDATA
+      movieList.push({title: newMovie});
+
+      this.setState({
+        movieList: movieList,
+        newMovie: ''
+      })
+    }
 
   render() {
 
@@ -73,27 +89,33 @@ class App extends React.Component {
     // }
 
     // if filteredmovies is NOT null (we are actively filtering) and length is 0. we ARE filtering and have NOT found anything
+    /*
     let isFiltering;
 
-
+    */
 
     return (
       <div>
         <h1><span>Movie List!!!</span></h1>
     
-        <Search handleSearchFormChange={this.handleSearchFormChange} 
+        <Search handleFormChange={this.handleFormChange} 
                 handleSearchFormSubmit={this.handleSearchFormSubmit}/>
 
-        <User />
+        <form 
+          onSubmit={this.handleNewMovieFormSubmit}>
+          <input type="search" name="newMovie" value={this.state.newMovie} onChange={this.handleFormChange} placeholder="add a movie..."/> 
+          <input type="submit" name="" value="Add A Movie"/>
+        </form>
 
         {/*<MovieList movies={this.props.movies} />*/}
+
         <MovieList movies={this.state.filteredMovieList || this.state.movieList} />
         { 
-          this.state.filteredMovieList !== null && this.state.filteredMovieList.length === 0 && 
+          this.state.filteredMovieList && this.state.filteredMovieList.length === 0 &&
           // console.log("I should be showing NO results found now"); // check my logic in line above
           <span>No movies found!</span>
-          
         }
+        {/* isFiltered === true && <span>No Movies Found</span> */}
       </div>
     )
   }
