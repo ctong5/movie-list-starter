@@ -11,29 +11,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: null,
-    };
+
+    }
   }
 
   render() {
     return (
       <div>
-      {console.log(this.props)}
-        <h1>Movie List!!!</h1>
-      
-        <div>
-        <Search />
-        </div>
+
+        <h1>Movie List</h1>
+
+        <div><MovieList movies={this.props.movies} /></div>
         
-        <div>
-          <MovieList movies={this.props.movies} />
-        </div>
-  
       </div>
     )
   }
 }
-
 
 export default App;
 
@@ -45,50 +38,40 @@ export default App;
 // for <MovieItem movie={movie}, this is JSX and NOT destructuring
 */
 
-// var App = (props) =>  {
+// const App = (props) => (
 
-//   console.log(props);
-//   return (
-//         <div>
-//           <h1>Movie List!!!</h1>
+//     <div>
     
-//           <form>
-//             <input type="text">
-//             </input>
-    
-//             <input type="submit">
-//             </input>
-//           </form>
-    
-//             <div>
-//               <MovieList movies={props.movies} />
-//             </div>
-    
-//         </div>
-//   )
-// }
+//       <h1>Movie List</h1>
+  
+//       <div><MovieList movies={props.movies} /></div>
+  
+//     </div>
 
+// );
 
 // export default App;
+
 
 /*
 // import exampleMovieLisData and have access to it
 // pass in prop in App. if you want to console.log props, watch ES6 () vs. {}
 */
-// var App = (dogs) => (
+
+// const App = (props) => (
+
 //   <div>
-//     <h1>Movie List!</h1>
-  
-//     <ul>
-//       <li>{dogs.movies[0].title}</li>    
-//       <li>{dogs.movies[1].title}</li>    
-//       <li>{dogs.movies[2].title}</li>    
-//       <li>{dogs.movies[3].title}</li>    
-//       <li>{dogs.movies[4].title}</li>    
-//     </ul>
+
+//     <h1>Movie List</h1>
+
+//     <div>{props.movies[0].title}</div>
+//     <div>{props.movies[1].title}</div>
+//     <div>{props.movies[2].title}</div>
+//     <div>{props.movies[3].title}</div>
+//     <div>{props.movies[4].title}</div>
+
 //   </div>
 // )
-
 
 // export default App;
 
@@ -104,22 +87,18 @@ export default App;
 //   {title: 'Ex Machina'},
 // ];
 
-// var App = () => (
+// const App = () => (
 //   <div>
-  
 //     <h1>Movie List</h1>
 
-//     <div>Movie List Container
-//       <ul>  
-//         <li>{movies[0].title}</li>
-//         <li>{movies[1].title}</li>
-//         <li>{movies[2].title}</li>
-//         <li>{movies[3].title}</li>
-//         <li>{movies[4].title}</li>
-//       </ul>
-//     </div>
-
+//     <div>{movies[0].title}</div>
+//     <div>{movies[1].title}</div>
+//     <div>{movies[2].title}</div>
+//     <div>{movies[3].title}</div>
+//     <div>{movies[4].title}</div>
+    
 //   </div>
 // )
 
 // export default App;
+
