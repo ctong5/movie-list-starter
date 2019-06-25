@@ -1,15 +1,15 @@
 import React from 'react';
 
-var Search = () => (
-  <form>
-  <input type="text"
+const Search = (props) => (
+  <div>
 
-          >
-  </input>
-
-  <input type="submit">
-  </input>
-</form>
+    <form onSubmit={(e) => props.onSubmit(e)}>
+      <input type="search" onChange={(e) => props.onChange(e)}/>
+      <input type="submit" />
+    
+    </form>
+  
+  </div>
 
 )
 
