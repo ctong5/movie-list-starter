@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieList from './MovieList';
 import Search from './Search';
-
+import User from './User';
 /*
 // give App state now
 */
@@ -24,14 +24,18 @@ class App extends React.Component {
       allMovies: this.props.movies,
       search: "",
       filteredMovies: "",
+      addedMovie: "",
     }
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleAddSubmit = this.handleAddSubmit.bind(this);
   }
 
-  handleSearchChange(e) {
+  handleChange(e) {
+    console.log("change")
+    // console.log(e.target.value)
     this.setState({
-      search: e.target.value,
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -59,18 +63,38 @@ class App extends React.Component {
     // pass this new prop into Movies component conditionally. 
     // if filteredMovies is false, Movie component passes in allMovies
     // if filteredMovies is true, Movie component passes in filteredMovies. 
-    // if filteredMovies is false
+    // if filteredMovies is true and length is 0, show error message
+  }
+
+  handleAddSubmit(e) {
+    e.preventDefault();
+    
+    // get state of addedMovie to create new movie
+    let addedMovieTitle = this.state.addedMovie;
+    let addedMovie = { title: addedMovieTitle };
+
+    // add that new movie to allMovies (NOT the props);
+    let allMovies = this.state.allMovies;
+    allMovies.push(addedMovie);
+
+    // get Movies component to updated allMovies and clear the add movie input bar
+    this.setState({
+      addedMovie: ""
+    })
   }
 
   render() {
-    const isFiltered = this.state.filteredMovies;
 
+    const isFiltered = this.state.filteredMovies;
+    
     return (
       <div>
 
         <h1>Movie List</h1>
 
-        <Search onChange={this.handleSearchChange} onSubmit={this.handleSearchSubmit}/>
+        <User handleChange={this.handleChange} handleAddSubmit={this.handleAddSubmit} addedMovieState={this.state.addedMovie}/>
+
+        <Search handleChange={this.handleChange} handleSearchSubmit={this.handleSearchSubmit}/>
 
         {/* NOTE: short circuit and choose filteredMovies if it exists */}
         <MovieList movies={ this.state.filteredMovies || this.state.allMovies}/>

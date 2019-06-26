@@ -3,9 +3,13 @@ import React from 'react';
 const Search = (props) => (
   <div>
 
-    <form onSubmit={(e) => props.onSubmit(e)}>
-      <input type="search" onChange={(e) => props.onChange(e)}/>
-      <input type="submit" />
+    <form onSubmit={(e) => props.handleSearchSubmit(e)}>
+    
+      <input 
+      type="search" 
+      name="search" 
+      onChange={(e) => props.handleChange(e)}/>
+      <input type="submit" value="Search movies" />
     
     </form>
   
