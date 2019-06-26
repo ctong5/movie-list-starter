@@ -29,6 +29,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleAddSubmit = this.handleAddSubmit.bind(this);
+    this.handleWatchToggle = this.handleWatchToggle.bind(this);
   }
 
   handleChange(e) {
@@ -86,6 +87,16 @@ class App extends React.Component {
     })
   }
 
+  handleWatchToggle(e) {
+    e.preventDefault()
+    console.log("toggling")
+    console.log(e);
+
+    // change !this.state.allMovies[i].watched
+    // not map, that would change ALL movies. just want to change 1 movie
+    let watchState = this.state.allMovies
+  }
+
   render() {
 
     const isFiltered = this.state.filteredMovies;
@@ -100,7 +111,10 @@ class App extends React.Component {
         <Search handleChange={this.handleChange} handleSearchSubmit={this.handleSearchSubmit}/>
 
         {/* NOTE: short circuit and choose filteredMovies if it exists */}
-        <MovieList movies={ this.state.filteredMovies || this.state.allMovies}/>
+        <MovieList 
+        movies={ this.state.filteredMovies || this.state.allMovies }
+        handleWatchToggle={this.handleWatchToggle}
+        />
           
         {/* NOTE: if filteredmovies exists(search executed) and filteredmovies.length is 0, 
           this means 0 search results matched ==> display no movies found*/}

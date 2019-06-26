@@ -5,7 +5,7 @@ var MovieList = (props) => (
 
   <div>
     {props.movies.map((movie) => 
-      <MovieItem movie={movie}/>
+      <MovieItem movie={movie} handleWatchToggle={props.handleWatchToggle}/>
     )}
   </div>
 
