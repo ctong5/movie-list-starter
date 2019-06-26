@@ -71,7 +71,10 @@ class App extends React.Component {
     
     // get state of addedMovie to create new movie
     let addedMovieTitle = this.state.addedMovie;
-    let addedMovie = { title: addedMovieTitle };
+    let addedMovie = { 
+      title: addedMovieTitle,
+      watched: false
+    };
 
     // add that new movie to allMovies (NOT the props);
     let allMovies = this.state.allMovies;
@@ -86,7 +89,7 @@ class App extends React.Component {
   render() {
 
     const isFiltered = this.state.filteredMovies;
-    
+
     return (
       <div>
 
