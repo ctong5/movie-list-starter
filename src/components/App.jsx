@@ -25,6 +25,13 @@ import User from './User';
   // to switch back to all movies shown, 
 */
 
+/*
+ Level 4:
+ Add a panel of movie information that appears when the title is clicked (consider starting with hardcoded information)
+ Refactor the watch toggle to be part of the movie information panel
+ Get movie information from the The Movie Database API 
+*/
+
 class App extends React.Component {
 
   constructor(props) {
