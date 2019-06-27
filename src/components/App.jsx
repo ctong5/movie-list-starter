@@ -87,14 +87,26 @@ class App extends React.Component {
     })
   }
 
-  handleWatchToggle(e) {
+  handleWatchToggle(e, movie, index) {
     e.preventDefault()
-    console.log("toggling")
-    console.log(e);
+    console.log("passed in movie, index: ", movie, index);
 
-    // change !this.state.allMovies[i].watched
-    // not map, that would change ALL movies. just want to change 1 movie
-    let watchState = this.state.allMovies
+    // change state of the exact movie that was passed in. 
+    // state changes, the movies should rerender. 
+    // the value of the button needs to change....so conditional rendering in MovieItem
+    let allMovies = [...this.state.allMovies];
+
+    // update movie to toggle watched/not watched
+    let toggledMovie = { title: movie.title, watched: !movie.watched }
+
+    // insert toggledMovie into the allMovies array
+    allMovies.splice(index, 1, toggledMovie);
+    // console.log("new toggled movie", toggledMovie)
+    // console.log("toggled", allMovies);
+
+    this.setState ({
+      allMovies: allMovies
+    })
   }
 
   render() {
@@ -114,6 +126,7 @@ class App extends React.Component {
         <MovieList 
         movies={ this.state.filteredMovies || this.state.allMovies }
         handleWatchToggle={this.handleWatchToggle}
+        watchState={this.state.allMovies}
         />
           
         {/* NOTE: if filteredmovies exists(search executed) and filteredmovies.length is 0, 

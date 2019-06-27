@@ -4,8 +4,16 @@ import MovieItem from "./MovieItem";
 var MovieList = (props) => (
 
   <div>
-    {props.movies.map((movie) => 
-      <MovieItem movie={movie} handleWatchToggle={props.handleWatchToggle}/>
+    {props.movies.map((movie, index) => 
+      <MovieItem 
+      movie={movie} 
+      // movie = props.movies.movie
+      // index = props.movies.index
+      index={index} 
+      handleWatchToggle={props.handleWatchToggle}
+      
+      
+      />
     )}
   </div>
 
