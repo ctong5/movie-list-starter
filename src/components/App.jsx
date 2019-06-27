@@ -131,6 +131,7 @@ class App extends React.Component {
 
   handleUnwatched(e) {
     let allMovies = this.props.movies;
+    
     // filter so only movie.watched === false shows
     allMovies = allMovies.filter(movie => {
       return !movie.watched;
