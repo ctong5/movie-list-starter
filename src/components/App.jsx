@@ -16,6 +16,15 @@ import User from './User';
   // create a filtered list of movies for filtered state
 // set state to the new filtered value
 
+/*
+// Add two buttons to allow the users to toggle between a list of 'watched' movies and movies 'to watch'.
+// filter through allMovies and pick out movies based on true/false
+  // two buttons: watched will filter to watched movies, unwatched will filter to unwatched
+  // buttons need to register clicks
+  // buttons need filter all movies by string false or true
+  // to switch back to all movies shown, 
+*/
+
 class App extends React.Component {
 
   constructor(props) {
@@ -23,48 +32,45 @@ class App extends React.Component {
     this.state = {
       allMovies: this.props.movies,
       search: "",
-      filteredMovies: "",
       addedMovie: "",
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleAddSubmit = this.handleAddSubmit.bind(this);
     this.handleWatchToggle = this.handleWatchToggle.bind(this);
+    this.handleShowAll = this.handleShowAll.bind(this);
+    this.handleWatched = this.handleWatched.bind(this);
+    this.handleUnwatched = this.handleUnwatched.bind(this);
   }
 
   handleChange(e) {
-    console.log("change")
-    // console.log(e.target.value)
     this.setState({
       [e.target.name]: e.target.value,
     });
   }
 
+  handleShowAll(e) {
+    e.preventDefault();
+    this.setState({
+      allMovies: this.props.movies,
+    })
+  }
+
   handleSearchSubmit(e) {
     e.preventDefault();
-    
-    // this handler initiates the filtering
-    // get a search term & all the movies to filter from 
-    let search = this.state.search;
-    let allMovies = [...this.props.movies];
-    console.log("copy allMovies: ", allMovies);
-    console.log(allMovies[0].title.toLowerCase())
 
-    // use .filter and includes to get a new array of filtered movies
-    let filteredMovies = allMovies.filter( movie => {
+    let search = this.state.search;
+    let allMovies = [...this.state.allMovies];
+    console.log("allMovies BEFORE Search: ", allMovies);
+
+    allMovies = allMovies.filter( movie => {
       return (movie.title.toLowerCase()).includes(search.toLowerCase());
     })
-    console.log("filteredMovies: ", filteredMovies);
+    console.log("allMovies AFTER Search: ", allMovies);
 
-    // set filtered state to the filtered list of movies
     this.setState({
-      filteredMovies: filteredMovies
+      allMovies: allMovies,
     })
-
-    // pass this new prop into Movies component conditionally. 
-    // if filteredMovies is false, Movie component passes in allMovies
-    // if filteredMovies is true, Movie component passes in filteredMovies. 
-    // if filteredMovies is true and length is 0, show error message
   }
 
   handleAddSubmit(e) {
@@ -94,7 +100,7 @@ class App extends React.Component {
     // change state of the exact movie that was passed in. 
     // state changes, the movies should rerender. 
     // the value of the button needs to change....so conditional rendering in MovieItem
-    let allMovies = [...this.state.allMovies];
+    let allMovies = this.props.movies;
 
     // update movie to toggle watched/not watched
     let toggledMovie = { title: movie.title, watched: !movie.watched }
@@ -109,14 +115,47 @@ class App extends React.Component {
     })
   }
 
-  render() {
+  handleWatched(e) {
+    let allMovies = this.props.movies;
 
-    const isFiltered = this.state.filteredMovies;
+    // filter so only movie.watched === true shows
+    allMovies = allMovies.filter(movie => {
+      return movie.watched;
+    })
+    console.log("list all watched movies: ", allMovies);
+
+    this.setState({
+      allMovies: allMovies,
+    })
+  }
+
+  handleUnwatched(e) {
+    let allMovies = this.props.movies;
+    // filter so only movie.watched === false shows
+    allMovies = allMovies.filter(movie => {
+      return !movie.watched;
+    })
+    console.log("list all unwatched movies: ", allMovies);
+
+    this.setState({
+      allMovies: allMovies,
+    })
+  }
+
+  render() {
 
     return (
       <div>
 
         <h1>Movie List</h1>
+
+        <div>
+          <button onClick={(e) => this.handleWatched(e)}>WATCHED MOVIES</button>
+          <button onClick={(e) => this.handleUnwatched(e)}>NOT WATCHED MOVIES</button>
+        </div>
+
+
+        <button onClick={this.handleShowAll}>Show All Movies</button>
 
         <User handleChange={this.handleChange} handleAddSubmit={this.handleAddSubmit} addedMovieState={this.state.addedMovie}/>
 
@@ -124,14 +163,23 @@ class App extends React.Component {
 
         {/* NOTE: short circuit and choose filteredMovies if it exists */}
         <MovieList 
-        movies={ this.state.filteredMovies || this.state.allMovies }
+        movies={ this.state.allMovies }
         handleWatchToggle={this.handleWatchToggle}
         watchState={this.state.allMovies}
         />
           
-        {/* NOTE: if filteredmovies exists(search executed) and filteredmovies.length is 0, 
-          this means 0 search results matched ==> display no movies found*/}
-        {isFiltered && isFiltered.length === 0 && <p>Didn't find yo movies</p>}
+        {/*
+          pass this new prop into Movies component conditionally. 
+          if filteredMovies is false, Movie component passes in allMovies
+          if filteredMovies is true, Movie component passes in filteredMovies. 
+          if filteredMovies is true and length is 0, show error message
+        */}
+
+        {/* 
+          NOTE: if filteredmovies exists(search executed) and filteredmovies.length is 0, 
+          this means 0 search results matched ==> display no movies found
+        */}
+        {this.state.allMovies && this.state.allMovies.length === 0 && <p>Didn't find yo movies</p>}
 
       </div>
     )
