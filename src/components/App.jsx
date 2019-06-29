@@ -2,6 +2,7 @@ import React from 'react';
 import MovieList from './MovieList';
 import Search from './Search';
 import User from './User';
+import Panel from './Panel';
 /*
 // give App state now
 */
@@ -28,6 +29,10 @@ import User from './User';
 /*
  Level 4:
  Add a panel of movie information that appears when the title is clicked (consider starting with hardcoded information)
+  // create panel of info
+  // movie title becomes a link/clickable element. 
+    // onClick will toggle the panel component rendering or not 
+
  Refactor the watch toggle to be part of the movie information panel
  Get movie information from the The Movie Database API 
 */
@@ -161,8 +166,7 @@ class App extends React.Component {
           <button onClick={(e) => this.handleWatched(e)}>WATCHED MOVIES</button>
           <button onClick={(e) => this.handleUnwatched(e)}>NOT WATCHED MOVIES</button>
         </div>
-
-
+        
         <button onClick={this.handleShowAll}>Show All Movies</button>
 
         <User handleChange={this.handleChange} handleAddSubmit={this.handleAddSubmit} addedMovieState={this.state.addedMovie}/>

@@ -11,6 +11,7 @@ X conditional render the button text in JSX
 */
 
 import React from 'react';
+import Panel from './Panel';
 
 // var MovieItem = (props) => (
 
@@ -45,6 +46,8 @@ class MovieItem extends React.Component {
         <button 
         onClick={e => this.props.handleWatchToggle(e, this.props.movie, this.props.index)}
         >{buttonLabel}</button>
+
+        <Panel />
 
       </div>
     )
