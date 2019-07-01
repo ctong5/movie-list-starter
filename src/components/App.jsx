@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from './Search';
-
+import MovieList from './MovieList';
 /*
 Level 0: make a list of movies
 */
@@ -10,9 +10,9 @@ Level 1:
 Add a search bar so that a user may see if a movie is in the list.
 - X add form for search and button (new search component)
 - X input should detect state change
-- button should detect click
+- X button should detect click
 After a user submits the search, display all matches (or partial matches) to that title.
-- take the search state and use it to filter thru movie list. movie list state will change based on the search
+- X take the search state and use it to filter thru movie list. movie list state will change based on the search
 Bonus: Handle the case of "no movie by that name found" gracefully.
 - conditional rendering. if moviestate is empty, display span of sorry no movies found
 */
@@ -58,6 +58,7 @@ class App extends React.Component {
   }
 
   render () {
+
     return (
       <div>
       
@@ -66,11 +67,8 @@ class App extends React.Component {
         <Search searchMovies={this.onChange} handleSearchSubmit={this.handleSearchSubmit} stateSearch={this.state.search}/> 
   
         <button onClick={() => this.handleShowAll()} >Show All Movies</button>
-        <div>
-          {this.state.allMovies.map(movie => {
-            return <div>{movie.title}</div>
-          })}
-        </div>
+
+        <MovieList movies={this.state.allMovies}/>
   
       </div>
     )
