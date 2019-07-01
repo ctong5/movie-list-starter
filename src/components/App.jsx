@@ -59,6 +59,8 @@ class App extends React.Component {
 
   render () {
 
+    const allMovies = this.state.allMovies;
+    
     return (
       <div>
       
@@ -69,9 +71,11 @@ class App extends React.Component {
         <button onClick={() => this.handleShowAll()} >Show All Movies</button>
 
         <MovieList movies={this.state.allMovies}/>
+        {this.state.search !==null && this.state.allMovies.length === 0 && <span>Sorry no movies found</span>}
   
       </div>
     )
+
   }
 }
   
