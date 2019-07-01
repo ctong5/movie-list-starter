@@ -9,7 +9,7 @@ Level 0: make a list of movies
 Level 1: 
 Add a search bar so that a user may see if a movie is in the list.
 - X add form for search and button (new search component)
-- input should detect state change
+- X input should detect state change
 - button should detect click
 After a user submits the search, display all matches (or partial matches) to that title.
 - take the search state and use it to filter thru movie list. movie list state will change based on the search
@@ -21,8 +21,40 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      allMovies: this.props.movies,
+      search: ""
     }
+    this.onChange = this.onChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleShowAll = this.handleShowAll.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({
+      search: e.target.value
+    });
+  }
+
+  handleSearchSubmit(e) {
+    e.preventDefault();
+    
+    let searchTerm = this.state.search;
+
+    let filteredMovies = this.props.movies.filter(movie => {
+      return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+
+    this.setState({
+      allMovies: filteredMovies,
+      search: ""
+    })
+  }
+
+  handleShowAll() {
+    // reset state to show all movies
+    this.setState({
+      allMovies: this.props.movies
+    })
   }
 
   render () {
@@ -31,10 +63,11 @@ class App extends React.Component {
       
         <h1>Movie List :D!</h1>
   
-        <Search /> 
+        <Search searchMovies={this.onChange} handleSearchSubmit={this.handleSearchSubmit} stateSearch={this.state.search}/> 
   
+        <button onClick={() => this.handleShowAll()} >Show All Movies</button>
         <div>
-          {this.props.movies.map(movie => {
+          {this.state.allMovies.map(movie => {
             return <div>{movie.title}</div>
           })}
         </div>
