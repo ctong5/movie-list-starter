@@ -13,8 +13,13 @@ Add a search bar so that a user may see if a movie is in the list.
 - X button should detect click
 After a user submits the search, display all matches (or partial matches) to that title.
 - X take the search state and use it to filter thru movie list. movie list state will change based on the search
-Bonus: Handle the case of "no movie by that name found" gracefully.
-- conditional rendering. if moviestate is empty, display span of sorry no movies found
+- X Bonus: Handle the case of "no movie by that name found" gracefully. conditional rendering. if search null AND moviestate is empty, display span of sorry no movies found
+*/
+
+/*
+Level 2: 
+Add an input field for users to add movies.
+Display only user added movies, not the hardcoded data.
 */
 
 class App extends React.Component {
