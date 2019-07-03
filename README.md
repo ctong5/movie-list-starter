@@ -39,4 +39,4 @@ Create a directory for your project before performing the following steps. The f
 
 7. Add script ```build: 'webpack'``` to ```package.json```. 
 
-You may use either ```webpack-dev-server``` or ```live-server``` for development. These will serve the working directory (and subdirectories) and reload the browser when it detects any changes. 
+You may use either ```webpack-dev-server``` or ```live-server``` for development. These will serve the working directory (and subdirectories) and reload the browser when it detects any changes.
